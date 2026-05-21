@@ -214,3 +214,55 @@
   .stat-card { padding: 14px 10px; }
   .stat-value { font-size: 18px; }
 }
+
+/* ── AUTH BOX ── */
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 24px;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  margin-bottom: 32px;
+
+  .auth-icon { font-size: 48px; }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 300px;
+  }
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ff0000;
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  transition: all 0.2s;
+  margin-top: 8px;
+
+  &:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 0, 0, 0.3);
+  }
+}

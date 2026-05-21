@@ -1,10 +1,20 @@
 <div class="dashboard">
   <div class="page-header">
-    <h1>📊Anjali kumari</h1>
+    <h1>📊 Channel Overview</h1>
     <span class="period">Jan 2025 → Today</span>
   </div>
 
-  <div *ngIf="loading" class="loader">
+  <!-- Not Logged In -->
+  <div *ngIf="isUnauthorized" class="auth-box">
+    <div class="auth-icon">🔐</div>
+    <h2>Login Required</h2>
+    <p>YouTube account se connect karo dashboard dekhne ke liye</p>
+    <button class="login-btn" (click)="login()">
+      <span>▶</span> Login with YouTube
+    </button>
+  </div>
+
+  <div *ngIf="loading && !isUnauthorized" class="loader">
     <div class="spinner"></div>
     <p>Loading analytics...</p>
   </div>
@@ -19,7 +29,6 @@
         <span class="stat-label">Total Views</span>
       </div>
     </div>
-
     <div class="stat-card blue">
       <div class="stat-icon">⏱️</div>
       <div class="stat-info">
@@ -27,7 +36,6 @@
         <span class="stat-label">Watch Time</span>
       </div>
     </div>
-
     <div class="stat-card green">
       <div class="stat-icon">📈</div>
       <div class="stat-info">
@@ -35,7 +43,6 @@
         <span class="stat-label">Subs Gained</span>
       </div>
     </div>
-
     <div class="stat-card orange">
       <div class="stat-icon">✅</div>
       <div class="stat-info">
@@ -43,7 +50,6 @@
         <span class="stat-label">Net Subscribers</span>
       </div>
     </div>
-
     <div class="stat-card pink">
       <div class="stat-icon">❤️</div>
       <div class="stat-info">
@@ -51,7 +57,6 @@
         <span class="stat-label">Likes</span>
       </div>
     </div>
-
     <div class="stat-card purple">
       <div class="stat-icon">🔗</div>
       <div class="stat-info">
@@ -59,7 +64,6 @@
         <span class="stat-label">Shares</span>
       </div>
     </div>
-
     <div class="stat-card teal">
       <div class="stat-icon">💬</div>
       <div class="stat-info">
@@ -67,7 +71,6 @@
         <span class="stat-label">Comments</span>
       </div>
     </div>
-
     <div class="stat-card dark">
       <div class="stat-icon">📉</div>
       <div class="stat-info">
@@ -77,21 +80,17 @@
     </div>
   </div>
 
-  <!-- Quick Nav -->
-  <div *ngIf="!loading" class="quick-nav">
+  <div *ngIf="!loading && !isUnauthorized" class="quick-nav">
     <h2>Quick Access</h2>
     <div class="nav-cards">
       <a routerLink="/analytics" class="nav-card">
-        <span class="nav-icon">📊</span>
-        <span>Analytics</span>
+        <span class="nav-icon">📊</span><span>Analytics</span>
       </a>
       <a routerLink="/videos" class="nav-card">
-        <span class="nav-icon">🎬</span>
-        <span>Videos</span>
+        <span class="nav-icon">🎬</span><span>Videos</span>
       </a>
       <a routerLink="/playlists" class="nav-card">
-        <span class="nav-icon">📋</span>
-        <span>Playlists</span>
+        <span class="nav-icon">📋</span><span>Playlists</span>
       </a>
     </div>
   </div>

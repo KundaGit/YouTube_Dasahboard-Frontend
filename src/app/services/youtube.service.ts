@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface AnalyticsOverview {
   success: boolean;
@@ -61,41 +62,54 @@ export interface Playlist {
 
 @Injectable({ providedIn: 'root' })
 export class YoutubeService {
-  private base = 'http://localhost:3000/api';
+  private base = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(public http: HttpClient) {}
 
   getOverview(startDate = '2025-01-01', endDate?: string): Observable<AnalyticsOverview> {
     const end = endDate || new Date().toISOString().split('T')[0];
     return this.http.get<AnalyticsOverview>(`${this.base}/analytics/overview`, {
-      params: new HttpParams().set('startDate', startDate).set('endDate', end)
+      params: new HttpParams().set('startDate', startDate).set('endDate', end),
+      withCredentials: true
     });
   }
 
   getDailyStats(startDate = '2026-05-01', endDate?: string): Observable<DailyStats> {
     const end = endDate || new Date().toISOString().split('T')[0];
     return this.http.get<DailyStats>(`${this.base}/analytics/daily`, {
-      params: new HttpParams().set('startDate', startDate).set('endDate', end)
+      params: new HttpParams().set('startDate', startDate).set('endDate', end),
+      withCredentials: true
     });
   }
 
   getTopVideos(limit = 10): Observable<{ success: boolean; data: TopVideo[] }> {
     return this.http.get<{ success: boolean; data: TopVideo[] }>(`${this.base}/analytics/top-videos`, {
-      params: new HttpParams().set('limit', limit).set('startDate', '2026-01-01')
+      params: new HttpParams().set('limit', limit).set('startDate', '2026-01-01'),
+      withCredentials: true
     });
   }
 
   getVideos(maxResults = 20): Observable<{ success: boolean; data: VideoItem[] }> {
     return this.http.get<{ success: boolean; data: VideoItem[] }>(`${this.base}/videos/list`, {
-      params: new HttpParams().set('maxResults', maxResults)
+      params: new HttpParams().set('maxResults', maxResults),
+      withCredentials: true
     });
   }
 
   getPlaylists(): Observable<{ success: boolean; data: Playlist[] }> {
-    return this.http.get<{ success: boolean; data: Playlist[] }>(`${this.base}/playlists`);
+    return this.http.get<{ success: boolean; data: Playlist[] }>(`${this.base}/playlists`, {
+      withCredentials: true
+    });
   }
 
   updateVideoMetadata(videoId: string, body: { title?: string; description?: string; tags?: string[] }) {
-    return this.http.patch(`${this.base}/videos/${videoId}`, body);
+    return this.http.patch(`${this.base}/videos/${videoId}`, body, { withCredentials: true });
+  }
+
+  checkAuthStatus(): Observable<{ authenticated: boolean }> {
+    return this.http.get<{ authenticated: boolean }>(
+      `${this.base.replace('/api', '')}/auth/status`,
+      { withCredentials: true }
+    );
   }
 }
