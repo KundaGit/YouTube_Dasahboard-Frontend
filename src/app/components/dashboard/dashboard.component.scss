@@ -266,3 +266,25 @@
     box-shadow: 0 8px 24px rgba(255, 0, 0, 0.3);
   }
 }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #ff4444;
+    color: #ff4444;
+  }
+}

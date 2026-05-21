@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -66,50 +66,57 @@ export class YoutubeService {
 
   constructor(public http: HttpClient) {}
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('yt_token');
+    return token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+  }
+
+  saveToken(token: string) { localStorage.setItem('yt_token', token); }
+  getToken(): string | null { return localStorage.getItem('yt_token'); }
+  clearToken() { localStorage.removeItem('yt_token'); }
+  isAuthenticated(): boolean { return !!localStorage.getItem('yt_token'); }
+
   getOverview(startDate = '2025-01-01', endDate?: string): Observable<AnalyticsOverview> {
     const end = endDate || new Date().toISOString().split('T')[0];
     return this.http.get<AnalyticsOverview>(`${this.base}/analytics/overview`, {
-      params: new HttpParams().set('startDate', startDate).set('endDate', end),
-      withCredentials: true
+      headers: this.getHeaders(),
+      params: new HttpParams().set('startDate', startDate).set('endDate', end)
     });
   }
 
   getDailyStats(startDate = '2026-05-01', endDate?: string): Observable<DailyStats> {
     const end = endDate || new Date().toISOString().split('T')[0];
     return this.http.get<DailyStats>(`${this.base}/analytics/daily`, {
-      params: new HttpParams().set('startDate', startDate).set('endDate', end),
-      withCredentials: true
+      headers: this.getHeaders(),
+      params: new HttpParams().set('startDate', startDate).set('endDate', end)
     });
   }
 
   getTopVideos(limit = 10): Observable<{ success: boolean; data: TopVideo[] }> {
     return this.http.get<{ success: boolean; data: TopVideo[] }>(`${this.base}/analytics/top-videos`, {
-      params: new HttpParams().set('limit', limit).set('startDate', '2026-01-01'),
-      withCredentials: true
+      headers: this.getHeaders(),
+      params: new HttpParams().set('limit', limit).set('startDate', '2026-01-01')
     });
   }
 
   getVideos(maxResults = 20): Observable<{ success: boolean; data: VideoItem[] }> {
     return this.http.get<{ success: boolean; data: VideoItem[] }>(`${this.base}/videos/list`, {
-      params: new HttpParams().set('maxResults', maxResults),
-      withCredentials: true
+      headers: this.getHeaders(),
+      params: new HttpParams().set('maxResults', maxResults)
     });
   }
 
   getPlaylists(): Observable<{ success: boolean; data: Playlist[] }> {
     return this.http.get<{ success: boolean; data: Playlist[] }>(`${this.base}/playlists`, {
-      withCredentials: true
+      headers: this.getHeaders()
     });
   }
 
   updateVideoMetadata(videoId: string, body: { title?: string; description?: string; tags?: string[] }) {
-    return this.http.patch(`${this.base}/videos/${videoId}`, body, { withCredentials: true });
-  }
-
-  checkAuthStatus(): Observable<{ authenticated: boolean }> {
-    return this.http.get<{ authenticated: boolean }>(
-      `${this.base.replace('/api', '')}/auth/status`,
-      { withCredentials: true }
-    );
+    return this.http.patch(`${this.base}/videos/${videoId}`, body, {
+      headers: this.getHeaders()
+    });
   }
 }

@@ -1,9 +1,11 @@
 <div class="dashboard">
   <div class="page-header">
-    <h1>📊 Channel Overview</h1>
+  <h1>📊 Channel Overview</h1>
+  <div class="header-right">
     <span class="period">Jan 2025 → Today</span>
+    <button *ngIf="!isUnauthorized" class="logout-btn" (click)="logout()">Logout</button>
   </div>
-
+</div>
   <!-- Not Logged In -->
   <div *ngIf="isUnauthorized" class="auth-box">
     <div class="auth-icon">🔐</div>
