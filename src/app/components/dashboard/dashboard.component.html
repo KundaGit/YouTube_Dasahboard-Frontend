@@ -1,0 +1,98 @@
+<div class="dashboard">
+  <div class="page-header">
+    <h1>📊Anjali kumari</h1>
+    <span class="period">Jan 2025 → Today</span>
+  </div>
+
+  <div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+    <p>Loading analytics...</p>
+  </div>
+
+  <div *ngIf="error" class="error-box">⚠️ {{ error }}</div>
+
+  <div *ngIf="overview && !loading" class="stats-grid">
+    <div class="stat-card red">
+      <div class="stat-icon">👁️</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ formatNum(overview.views) }}</span>
+        <span class="stat-label">Total Views</span>
+      </div>
+    </div>
+
+    <div class="stat-card blue">
+      <div class="stat-icon">⏱️</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ formatNum(overview.watchTimeHours) }}h</span>
+        <span class="stat-label">Watch Time</span>
+      </div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-icon">📈</div>
+      <div class="stat-info">
+        <span class="stat-value">+{{ formatNum(overview.subscribersGained) }}</span>
+        <span class="stat-label">Subs Gained</span>
+      </div>
+    </div>
+
+    <div class="stat-card orange">
+      <div class="stat-icon">✅</div>
+      <div class="stat-info">
+        <span class="stat-value">+{{ formatNum(overview.netSubscribers) }}</span>
+        <span class="stat-label">Net Subscribers</span>
+      </div>
+    </div>
+
+    <div class="stat-card pink">
+      <div class="stat-icon">❤️</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ formatNum(overview.likes) }}</span>
+        <span class="stat-label">Likes</span>
+      </div>
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-icon">🔗</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ formatNum(overview.shares) }}</span>
+        <span class="stat-label">Shares</span>
+      </div>
+    </div>
+
+    <div class="stat-card teal">
+      <div class="stat-icon">💬</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ formatNum(overview.comments) }}</span>
+        <span class="stat-label">Comments</span>
+      </div>
+    </div>
+
+    <div class="stat-card dark">
+      <div class="stat-icon">📉</div>
+      <div class="stat-info">
+        <span class="stat-value">-{{ formatNum(overview.subscribersLost) }}</span>
+        <span class="stat-label">Subs Lost</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Nav -->
+  <div *ngIf="!loading" class="quick-nav">
+    <h2>Quick Access</h2>
+    <div class="nav-cards">
+      <a routerLink="/analytics" class="nav-card">
+        <span class="nav-icon">📊</span>
+        <span>Analytics</span>
+      </a>
+      <a routerLink="/videos" class="nav-card">
+        <span class="nav-icon">🎬</span>
+        <span>Videos</span>
+      </a>
+      <a routerLink="/playlists" class="nav-card">
+        <span class="nav-icon">📋</span>
+        <span>Playlists</span>
+      </a>
+    </div>
+  </div>
+</div>

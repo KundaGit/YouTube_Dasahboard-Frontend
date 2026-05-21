@@ -1,0 +1,46 @@
+<div class="playlists">
+  <div class="page-header">
+    <h1>📋 Playlists</h1>
+    <button class="create-btn" (click)="showCreate = !showCreate">+ New Playlist</button>
+  </div>
+
+  <!-- Create Form -->
+  <div *ngIf="showCreate" class="create-form">
+    <h3>Create New Playlist</h3>
+    <input [(ngModel)]="newTitle" class="input" placeholder="Playlist title *" />
+    <textarea [(ngModel)]="newDesc" class="textarea" rows="3" placeholder="Description (optional)"></textarea>
+    <div *ngIf="createMsg" class="msg">{{ createMsg }}</div>
+    <div class="form-actions">
+      <button class="btn-cancel" (click)="showCreate = false">Cancel</button>
+      <button class="btn-save" (click)="createPlaylist()" [disabled]="creating || !newTitle.trim()">
+        {{ creating ? 'Creating...' : 'Create' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loader">
+    <div class="spinner"></div><p>Loading playlists...</p>
+  </div>
+
+  <div *ngIf="error" class="error-box">⚠️ {{ error }}</div>
+
+  <div *ngIf="!loading && !playlists?.length && !error" class="empty">
+    <p>📭 No playlists found. Create one above!</p>
+  </div>
+
+  <div *ngIf="!loading && playlists?.length" class="playlist-grid">
+    <div *ngFor="let p of playlists" class="playlist-card">
+      <div class="thumbnail-wrap">
+        <img *ngIf="p.thumbnail" [src]="p.thumbnail" [alt]="p.title" class="thumbnail" />
+        <div *ngIf="!p.thumbnail" class="no-thumb">📋</div>
+      </div>
+      <div class="card-body">
+        <p class="playlist-title">{{ p.title }}</p>
+        <p class="playlist-desc" *ngIf="p.description">{{ p.description }}</p>
+        <div class="playlist-meta">
+          <span>🎬 {{ p.videoCount }} videos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

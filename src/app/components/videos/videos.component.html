@@ -1,0 +1,51 @@
+<div class="videos">
+  <div class="page-header">
+    <h1>🎬 Videos</h1>
+    <span class="count" *ngIf="videos.length">{{ videos.length }} videos</span>
+  </div>
+
+  <div *ngIf="loading" class="loader">
+    <div class="spinner"></div><p>Loading videos...</p>
+  </div>
+
+  <div *ngIf="error" class="error-box">⚠️ {{ error }}</div>
+
+  <div *ngIf="!loading" class="video-grid">
+    <div *ngFor="let v of videos" class="video-card">
+      <div class="thumbnail-wrap">
+        <img [src]="v.thumbnail" [alt]="v.title" class="thumbnail" loading="lazy" />
+        <a [href]="v.videoUrl" target="_blank" class="play-btn">▶</a>
+      </div>
+      <div class="card-body">
+        <p class="video-title">{{ v.title }}</p>
+        <p class="video-date">📅 {{ formatDate(v.publishedAt) }}</p>
+        <button class="edit-btn" (click)="openEdit(v)">✏️ Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" *ngIf="editingVideo" (click)="closeEdit()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>✏️ Edit Video</h3>
+        <button class="close-btn" (click)="closeEdit()">✕</button>
+      </div>
+      <div class="modal-body">
+        <label>Title</label>
+        <input [(ngModel)]="editTitle" class="input" placeholder="Video title" />
+
+        <label>Description</label>
+        <textarea [(ngModel)]="editDescription" class="textarea" rows="5" placeholder="Video description"></textarea>
+
+        <div *ngIf="saveMsg" class="save-msg">{{ saveMsg }}</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="closeEdit()">Cancel</button>
+        <button class="btn-save" (click)="saveEdit()" [disabled]="saving">
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
