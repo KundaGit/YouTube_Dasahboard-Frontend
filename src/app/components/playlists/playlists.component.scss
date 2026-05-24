@@ -198,3 +198,12 @@
     gap: 12px;
   }
 }
+@media (max-width: 1024px) {
+  .analytics { padding: 12px; }
+  .page-header h1 { font-size: 20px; }
+  .video-row { flex-wrap: wrap; padding: 12px; gap: 10px; }
+  .video-info .video-title { font-size: 13px; }
+  .video-views { min-width: 70px; }
+  .views-count { font-size: 14px; }
+  .daily-table table th, .daily-table table td { padding: 8px 8px; font-size: 11px; }
+}

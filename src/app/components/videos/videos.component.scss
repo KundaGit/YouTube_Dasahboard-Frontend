@@ -279,3 +279,12 @@
 @media (max-width: 480px) {
   .video-grid { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 1024px) {
+  .videos { padding: 12px; }
+  .page-header h1 { font-size: 20px; }
+  .video-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card-body { padding: 10px; }
+  .card-body .video-title { font-size: 11px; -webkit-line-clamp: 2; }
+  .card-body .video-date { font-size: 10px; }
+  .edit-btn { font-size: 11px; padding: 5px 10px; }
+}
