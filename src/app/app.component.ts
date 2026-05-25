@@ -7,7 +7,6 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   template: `
     <div class="app-layout">
-      <!-- Sidebar -->
       <aside class="sidebar">
         <div class="logo">
           <span class="logo-icon">🎬</span>
@@ -16,26 +15,20 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
             <span class="logo-sub">Studio</span>
           </div>
         </div>
-
         <nav class="nav">
           <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
-            <span class="nav-icon">📊</span>
-            <span>Dashboard</span>
+            <span class="nav-icon">📊</span><span>Dashboard</span>
           </a>
           <a routerLink="/analytics" routerLinkActive="active" class="nav-item">
-            <span class="nav-icon">📈</span>
-            <span>Analytics</span>
+            <span class="nav-icon">📈</span><span>Analytics</span>
           </a>
           <a routerLink="/videos" routerLinkActive="active" class="nav-item">
-            <span class="nav-icon">🎬</span>
-            <span>Videos</span>
+            <span class="nav-icon">🎬</span><span>Videos</span>
           </a>
           <a routerLink="/playlists" routerLinkActive="active" class="nav-item">
-            <span class="nav-icon">📋</span>
-            <span>Playlists</span>
+            <span class="nav-icon">📋</span><span>Playlists</span>
           </a>
         </nav>
-
         <div class="sidebar-footer">
           <div class="channel-info">
             <div class="channel-avatar">KA</div>
@@ -47,10 +40,34 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
         </div>
       </aside>
 
-      <!-- Main Content -->
       <main class="main-content">
         <router-outlet />
       </main>
+<!-- Channel Info Bar (mobile only) -->
+<div class="channel-bar">
+  <div class="channel-avatar-sm">KA</div>
+  <span class="channel-bar-name">Kundan AI Studio</span>
+  <span class="channel-bar-dot">•</span>
+  <span class="channel-bar-subs">~5K subs</span>
+</div>
+      <nav class="bottom-nav">
+        <a routerLink="/dashboard" routerLinkActive="active" class="bottom-nav-item">
+          <span class="bn-icon">📊</span>
+          <span class="bn-label">Home</span>
+        </a>
+        <a routerLink="/analytics" routerLinkActive="active" class="bottom-nav-item">
+          <span class="bn-icon">📈</span>
+          <span class="bn-label">Analytics</span>
+        </a>
+        <a routerLink="/videos" routerLinkActive="active" class="bottom-nav-item">
+          <span class="bn-icon">🎬</span>
+          <span class="bn-label">Videos</span>
+        </a>
+        <a routerLink="/playlists" routerLinkActive="active" class="bottom-nav-item">
+          <span class="bn-icon">📋</span>
+          <span class="bn-label">Playlists</span>
+        </a>
+      </nav>
     </div>
   `,
   styles: [`
@@ -80,16 +97,11 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       padding: 0 24px 32px;
       border-bottom: 1px solid var(--border);
       margin-bottom: 16px;
-
-      .logo-icon { font-size: 32px; }
-
-      .logo-text {
-        display: flex;
-        flex-direction: column;
-        .logo-title { font-size: 16px; font-weight: 800; color: var(--text-primary); }
-        .logo-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-      }
     }
+    .logo-icon { font-size: 32px; }
+    .logo-text { display: flex; flex-direction: column; }
+    .logo-title { font-size: 16px; font-weight: 800; color: var(--text-primary); }
+    .logo-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
     .nav {
       flex: 1;
@@ -110,61 +122,60 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       font-size: 14px;
       font-weight: 500;
       transition: all 0.2s;
-
-      .nav-icon { font-size: 18px; }
-
-      &:hover {
-        background: var(--bg-hover);
-        color: var(--text-primary);
-      }
-
-      &.active {
-        background: var(--accent);
-        color: white;
-      }
     }
+    .nav-icon { font-size: 18px; }
+    .nav-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .nav-item.active { background: var(--accent); color: white; }
 
     .sidebar-footer {
       padding: 16px 24px 0;
       border-top: 1px solid var(--border);
     }
-
-    .channel-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .channel-info { display: flex; align-items: center; gap: 12px; }
     .channel-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--accent); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
     }
-
-    .channel-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0;
-    }
-
-    .channel-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin: 0;
-    }
+    .channel-name { font-size: 13px; font-weight: 600; color: var(--text-primary); margin: 0; }
+    .channel-sub { font-size: 11px; color: var(--text-muted); margin: 0; }
 
     .main-content {
       flex: 1;
       overflow-y: auto;
       background: var(--bg-main);
+    }
+
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: var(--bg-sidebar);
+      border-top: 1px solid var(--border);
+      z-index: 999;
+    }
+
+    .bottom-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .bn-icon { font-size: 20px; line-height: 1; }
+    .bn-label { font-size: 10px; font-weight: 600; }
+    .bottom-nav-item.active { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none !important; }
+      .bottom-nav { display: flex !important; }
+      .main-content { padding-bottom: 60px; }
     }
   `]
 })

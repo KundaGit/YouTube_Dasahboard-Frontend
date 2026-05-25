@@ -2,12 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Kundan AI Studio — Dashboard</title>
+  <title>Kundan AI Studio</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff3f3f">
+  <meta name="description" content="YouTube Channel Manager - Kundan AI Studio">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KA Studio">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png">
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/ngsw-worker.js').then(() => {
+        console.log('Service Worker registered');
+      }).catch(err => console.log('SW registration failed:', err));
+    }
+  </script>
 </body>
 </html>

@@ -25,3 +25,38 @@ html, body {
 ::-webkit-scrollbar-track { background: var(--bg-main); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+
+.channel-bar {
+  display: none;
+  position: fixed;
+  bottom: 60px;
+  left: 0; right: 0;
+  height: 36px;
+  background: var(--bg-sidebar);
+  border-top: 1px solid var(--border);
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  z-index: 998;
+}
+
+.channel-avatar-sm {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+}
+
+.channel-bar-name { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+.channel-bar-dot { color: var(--text-muted); font-size: 12px; }
+.channel-bar-subs { font-size: 11px; color: var(--text-muted); }
+
+@media (max-width: 768px) {
+  .sidebar { display: none !important; }
+  .bottom-nav { display: flex !important; }
+  .channel-bar { display: flex !important; }
+  .main-content { padding-bottom: 96px; }
+}
