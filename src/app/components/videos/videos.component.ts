@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { YoutubeService, VideoItem } from '../../services/youtube.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-videos',
@@ -19,8 +20,10 @@ export class VideosComponent implements OnInit {
   editDescription = '';
   saving = false;
   saveMsg = '';
+  selectedVideoId: string | null = null;
+  safeVideoUrl: SafeResourceUrl | null = null;
 
-  constructor(private yt: YoutubeService) {}
+  constructor(private yt: YoutubeService, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     this.yt.getVideos(20).subscribe({
@@ -62,6 +65,22 @@ export class VideosComponent implements OnInit {
       }
     });
   }
+
+openVideo(videoId: string) {
+
+  this.selectedVideoId = videoId;
+
+  this.safeVideoUrl =
+    this.sanitizer.bypassSecurityTrustResourceUrl(
+      `https://www.youtube.com/embed/${videoId}?autoplay=1`
+    );
+
+}
+
+closeVideo() {
+  this.selectedVideoId = null;
+  this.safeVideoUrl = null;
+}
 
   formatDate(d: string): string {
     return new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });

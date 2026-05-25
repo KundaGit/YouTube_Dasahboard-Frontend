@@ -14,7 +14,11 @@
     <div *ngFor="let v of videos" class="video-card">
       <div class="thumbnail-wrap">
         <img [src]="v.thumbnail" [alt]="v.title" class="thumbnail" loading="lazy" />
-        <a [href]="v.videoUrl" target="_blank" class="play-btn">▶</a>
+        <!-- <a [href]="v.videoUrl" target="_blank" class="play-btn">▶</a> -->
+         <button class="play-btn"
+        (click)="openVideo(v.videoId)">
+  ▶
+</button>
       </div>
       <div class="card-body">
         <p class="video-title">{{ v.title }}</p>
@@ -48,4 +52,30 @@
       </div>
     </div>
   </div>
+<!-- VIDEO PLAYER MODAL -->
+
+<div class="video-modal"
+     *ngIf="selectedVideoId">
+
+  <div class="video-overlay"
+       (click)="closeVideo()">
+  </div>
+
+  <div class="video-container">
+
+    <button class="close-video"
+            (click)="closeVideo()">
+      ✕
+    </button>
+
+   <iframe
+  [src]="safeVideoUrl"
+  frameborder="0"
+  allow="autoplay; encrypted-media"
+  allowfullscreen>
+</iframe>
+
+  </div>
+
+</div>
 </div>
