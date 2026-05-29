@@ -13,6 +13,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class VideosComponent implements OnInit {
   videos: VideoItem[] = [];
+  shortVideos: VideoItem[] = [];
+longVideos: VideoItem[] = [];
   loading = true;
   error = '';
   editingVideo: VideoItem | null = null;
@@ -22,15 +24,62 @@ export class VideosComponent implements OnInit {
   saveMsg = '';
   selectedVideoId: string | null = null;
   safeVideoUrl: SafeResourceUrl | null = null;
+  nextPageToken = '';
+  searchTerm = '';
+activeTab = 'all';
 
   constructor(private yt: YoutubeService, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
-    this.yt.getVideos(20).subscribe({
-      next: (res) => { this.videos = res.data; this.loading = false; },
-      error: () => { this.error = 'Failed to load videos'; this.loading = false; }
-    });
+    this.loadVideos();
   }
+
+  loadVideos() {
+
+  this.loading = true;
+
+  this.yt.getVideos(
+    50,
+    this.nextPageToken
+  ).subscribe({
+
+    next: (res) => {
+
+      const newVideos = res.data;
+
+this.videos = [
+  ...this.videos,
+  ...newVideos
+];
+
+this.shortVideos =
+  this.videos.filter(v =>
+    this.isShort(v.duration)
+  );
+
+this.longVideos =
+  this.videos.filter(v =>
+    !this.isShort(v.duration)
+  );
+
+      this.nextPageToken =
+        res.nextPageToken || '';
+
+      this.loading = false;
+
+    },
+
+    error: () => {
+
+      this.error = 'Failed to load videos';
+
+      this.loading = false;
+
+    }
+
+  });
+
+}
 
   openEdit(v: VideoItem) {
     this.editingVideo = v;
@@ -80,6 +129,57 @@ openVideo(videoId: string) {
 closeVideo() {
   this.selectedVideoId = null;
   this.safeVideoUrl = null;
+}
+isShort(duration: string): boolean {
+
+  const match =
+    duration.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
+
+  const minutes =
+    parseInt(match?.[1] || '0');
+
+  const seconds =
+    parseInt(match?.[2] || '0');
+
+  const total =
+    (minutes * 60) + seconds;
+
+  return total <= 90;
+}
+get filteredVideos(): VideoItem[] {
+
+  let filtered = this.videos;
+
+  // SEARCH
+  if (this.searchTerm.trim()) {
+
+    filtered = filtered.filter(v =>
+      v.title.toLowerCase().includes(
+        this.searchTerm.toLowerCase()
+      )
+    );
+
+  }
+
+  // TABS
+  if (this.activeTab === 'shorts') {
+
+    filtered = filtered.filter(v =>
+      this.isShort(v.duration)
+    );
+
+  }
+
+  if (this.activeTab === 'long') {
+
+    filtered = filtered.filter(v =>
+      !this.isShort(v.duration)
+    );
+
+  }
+
+  return filtered;
+
 }
 
   formatDate(d: string): string {

@@ -172,11 +172,146 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
     .bn-label { font-size: 10px; font-weight: 600; }
     .bottom-nav-item.active { color: var(--accent); }
 
-    @media (max-width: 768px) {
-      .sidebar { display: none !important; }
-      .bottom-nav { display: flex !important; }
-      .main-content { padding-bottom: 60px; }
-    }
+   @media (max-width: 768px) {
+
+  .sidebar {
+    display: none !important;
+  }
+
+  .main-content {
+    padding-bottom: 120px;
+  }
+
+  .bottom-nav {
+
+    display: flex !important;
+
+    position: fixed;
+
+    left: 12px;
+    right: 12px;
+    bottom: 14px;
+
+    height: 64px;
+
+    border-radius: 22px;
+
+    background: rgba(10,10,15,0.92);
+
+    backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.45);
+
+    padding: 0 8px;
+
+    z-index: 9999;
+  }
+
+  .bottom-nav-item {
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    border-radius: 16px;
+
+    transition: 0.25s;
+  }
+
+  .bottom-nav-item.active {
+
+    background: rgba(255,255,255,0.06);
+
+    color: var(--accent);
+  }
+
+  .bn-icon {
+    font-size: 18px;
+  }
+
+  .bn-label {
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .channel-bar {
+
+    position: fixed;
+
+    left: 12px;
+    right: 12px;
+
+    bottom: 88px;
+
+    height: 44px;
+
+    border-radius: 16px;
+
+    background: rgba(20,20,25,0.95);
+
+    border: 1px solid rgba(255,255,255,0.05);
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 14px;
+
+    z-index: 9998;
+  }
+
+  .channel-avatar-sm {
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    margin-right: 10px;
+  }
+
+  .channel-bar-name {
+
+    font-size: 12px;
+    font-weight: 600;
+
+    color: var(--text-primary);
+  }
+
+  .channel-bar-dot {
+
+    margin: 0 6px;
+
+    color: var(--text-muted);
+  }
+
+  .channel-bar-subs {
+
+    font-size: 11px;
+
+    color: var(--text-muted);
+  }
+
+}
   `]
 })
 export class AppComponent {}

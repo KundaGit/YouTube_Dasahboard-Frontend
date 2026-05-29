@@ -49,6 +49,7 @@ export interface VideoItem {
   thumbnail: string;
   publishedAt: string;
   videoUrl: string;
+  duration: string;
 }
 
 export interface Playlist {
@@ -58,6 +59,7 @@ export interface Playlist {
   thumbnail: string;
   videoCount: number;
   publishedAt: string;
+  
 }
 
 @Injectable({ providedIn: 'root' })
@@ -101,13 +103,37 @@ export class YoutubeService {
     });
   }
 
-  getVideos(maxResults = 20): Observable<{ success: boolean; data: VideoItem[] }> {
-    return this.http.get<{ success: boolean; data: VideoItem[] }>(`${this.base}/videos/list`, {
-      headers: this.getHeaders(),
-      params: new HttpParams().set('maxResults', maxResults)
-    });
+  // getVideos(maxResults = 20): Observable<{ success: boolean; data: VideoItem[] }> {
+  //   return this.http.get<{ success: boolean; data: VideoItem[] }>(`${this.base}/videos/list`, {
+  //     headers: this.getHeaders(),
+  //     params: new HttpParams().set('maxResults', maxResults)
+  //   });
+  // }
+
+  getVideos(
+  maxResults = 50,
+  pageToken = ''
+): Observable<any> {
+
+  let params = new HttpParams()
+    .set('maxResults', maxResults);
+
+  if (pageToken) {
+    params = params.set(
+      'pageToken',
+      pageToken
+    );
   }
 
+  return this.http.get<any>(
+    `${this.base}/videos/list`,
+    {
+      headers: this.getHeaders(),
+      params
+    }
+  );
+
+}
   getPlaylists(): Observable<{ success: boolean; data: Playlist[] }> {
     return this.http.get<{ success: boolean; data: Playlist[] }>(`${this.base}/playlists`, {
       headers: this.getHeaders()

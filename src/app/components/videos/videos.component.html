@@ -1,5 +1,49 @@
 <div class="videos">
   <div class="page-header">
+    <!-- SEARCH -->
+
+<div class="top-controls">
+
+  <input
+    type="text"
+    placeholder="Search videos..."
+    [(ngModel)]="searchTerm"
+    class="search-input">
+
+  <!-- TABS -->
+
+  <div class="tabs">
+
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'all'"
+      (click)="activeTab = 'all'">
+
+      All
+
+    </button>
+
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'shorts'"
+      (click)="activeTab = 'shorts'">
+
+      Shorts
+
+    </button>
+
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'long'"
+      (click)="activeTab = 'long'">
+
+      Long Videos
+
+    </button>
+
+  </div>
+
+</div>
     <h1>🎬 Videos</h1>
     <span class="count" *ngIf="videos.length">{{ videos.length }} videos</span>
   </div>
@@ -11,7 +55,7 @@
   <div *ngIf="error" class="error-box">⚠️ {{ error }}</div>
 
   <div *ngIf="!loading" class="video-grid">
-    <div *ngFor="let v of videos" class="video-card">
+    <div *ngFor="let v of filteredVideos" class="video-card">
       <div class="thumbnail-wrap">
         <img [src]="v.thumbnail" [alt]="v.title" class="thumbnail" loading="lazy" />
         <!-- <a [href]="v.videoUrl" target="_blank" class="play-btn">▶</a> -->
@@ -27,7 +71,18 @@
       </div>
     </div>
   </div>
+<div class="load-more-wrap"
+     *ngIf="nextPageToken && !loading">
 
+  <button
+    class="load-more-btn"
+    (click)="loadVideos()">
+
+    Load More Videos
+
+  </button>
+
+</div>
   <!-- Edit Modal -->
   <div class="modal-overlay" *ngIf="editingVideo" (click)="closeEdit()">
     <div class="modal" (click)="$event.stopPropagation()">
@@ -79,3 +134,4 @@
 
 </div>
 </div>
+
