@@ -28,6 +28,9 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/playlists" routerLinkActive="active" class="nav-item">
             <span class="nav-icon">📋</span><span>Playlists</span>
           </a>
+           <a routerLink="/explore" routerLinkActive="active" class="nav-item">
+            <span class="nav-icon">🔎</span><span>Explore</span>
+          </a>
         </nav>
         <div class="sidebar-footer">
           <div class="channel-info">
@@ -66,6 +69,10 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
         <a routerLink="/playlists" routerLinkActive="active" class="bottom-nav-item">
           <span class="bn-icon">📋</span>
           <span class="bn-label">Playlists</span>
+        </a>
+        <a routerLink="/explore" routerLinkActive="active" class="bottom-nav-item">
+          <span class="bn-icon">🔎</span>
+          <span class="bn-label">Explore</span>
         </a>
       </nav>
     </div>

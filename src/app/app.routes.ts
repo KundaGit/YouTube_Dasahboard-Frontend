@@ -10,4 +10,10 @@ export const routes: Routes = [
   { path: 'analytics', component: AnalyticsComponent },
   { path: 'videos', component: VideosComponent },
   { path: 'playlists', component: PlaylistsComponent },
+  {
+  path: 'explore',
+  loadComponent: () =>
+    import('./components/explore/explore.component')
+      .then(m => m.ExploreComponent)
+}
 ];

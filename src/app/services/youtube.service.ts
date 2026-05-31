@@ -145,4 +145,26 @@ export class YoutubeService {
       headers: this.getHeaders()
     });
   }
+  searchVideos(query: string) {
+
+  return this.http.get<any>(
+    `${this.base}/videos/search`,
+    {
+      headers: this.getHeaders(),
+      params: { q: query }
+    }
+  );
+
+}
+
+getTrendingVideos() {
+
+  return this.http.get<any>(
+    `${this.base}/videos/trending`,
+    {
+      headers: this.getHeaders()
+    }
+  );
+
+}
 }

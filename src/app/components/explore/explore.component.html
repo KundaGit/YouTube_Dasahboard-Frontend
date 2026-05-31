@@ -1,0 +1,69 @@
+<div class="explore-page">
+
+  <div class="explore-header">
+    <h1>🔎 Explore YouTube</h1>
+    <span>{{ videos.length }} Videos</span>
+  </div>
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search YouTube..."
+    >
+
+    <button (click)="searchYoutube()">
+      🔍 Search
+    </button>
+
+  </div>
+
+  <div class="tabs">
+
+    <button
+      class="tab-btn"
+      [class.active]="activeTab==='trending'"
+      (click)="loadTrending()">
+
+      🔥 Trending
+
+    </button>
+
+    <button
+      class="tab-btn"
+      [class.active]="activeTab==='search'">
+
+      🔎 Search Results
+
+    </button>
+
+  </div>
+
+  <div class="video-grid">
+
+    <div
+      class="video-card"
+      *ngFor="let v of videos">
+
+      <img
+        class="thumb"
+        [src]="v.snippet.thumbnails.high.url">
+
+      <div class="info">
+
+        <h4>
+          {{ v.snippet.title }}
+        </h4>
+
+        <p>
+          {{ v.snippet.channelTitle }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
