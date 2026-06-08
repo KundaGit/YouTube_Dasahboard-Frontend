@@ -1,85 +1,114 @@
 <div class="explore-page">
+  <div class="yt-header">
+    <!-- <div class="yt-logo">
+      <span class="play-icon">▶</span>
+      <span>YouTube</span>
+    </div> -->
 
-  <div class="explore-header">
-    <h1>🔎 Explore YouTube</h1>
-    <span>{{ videos.length }} Videos</span>
+    <div class="yt-logo">
+
+  <div class="yt-icon">
+    ▶
   </div>
 
-  <div class="search-box">
+  <span>YouTube</span>
 
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      placeholder="Search YouTube..."
-    >
-
-    <button (click)="searchYoutube()">
-      🔍 Search
-    </button>
-
+</div>
+    <div class="yt-count">{{ videos.length }} Videos</div>
   </div>
 
-  <div class="tabs">
+  <!-- Search box -->
 
-    <button
-      class="tab-btn"
-      [class.active]="activeTab==='trending'"
-      (click)="loadTrending()">
+  <div class="yt-search">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search" />
 
-      🔥 Trending
+    <button (click)="searchYoutube()">🔍</button>
+  </div>
+  <!-- <div class="tabs"> -->
+  <!-- <div class="chips">
 
-    </button>
+  <button class="active">
+    All
+  </button>
 
+  <button>
+    Music
+  </button>
+
+  <button>
+    Gaming
+  </button>
+
+  <button>
+    Podcasts
+  </button>
+
+</div>
     <button
       class="tab-btn"
       [class.active]="activeTab==='search'">
 
       🔎 Search Results
 
-    </button>
+    </button> -->
 
+  <!-- </div> -->
+  <div class="chips">
+    <button class="active">All</button>
+    <button>Music</button>
+    <button>Gaming</button>
+    <button>Podcasts</button>
+
+    <button *ngIf="activeTab === 'search'">Search Results</button>
   </div>
-<div class="player-section" *ngIf="selectedVideoId">
-
-  <iframe
-    [src]="safeVideoUrl"
-    allowfullscreen
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-  </iframe>
-
-</div>
+  <div class="player-section" *ngIf="selectedVideoId">
+    <iframe
+      [src]="safeVideoUrl"
+      allowfullscreen
+      frameborder="0"
+      allow="
+        accelerometer;
+        autoplay;
+        clipboard-write;
+        encrypted-media;
+        gyroscope;
+        picture-in-picture;
+      "
+    >
+    </iframe>
+  </div>
 
   <div class="video-grid">
-
     <div
-  class="video-card"
-  *ngFor="let v of videos"
-  
-  (click)="playVideo(v.videoId || v.id?.videoId || v.id, v)">
+      class="video-card"
+      *ngFor="let v of videos; let i = index"
+      (click)="playVideo(v.videoId || v.id?.videoId || v.id, v)"
+    >
       <!-- <img class="thumb" [src]="v.snippet.thumbnails.high.url"> -->
       <div class="thumb-wrap">
+        <img class="thumb" [src]="v.snippet.thumbnails.high.url" />
 
-  <img
-    class="thumb"
-    [src]="v.snippet.thumbnails.high.url">
-
-  <div class="play-overlay">
-    ▶
-  </div>
-
-</div>
-      <div class="info">
-        <h4>
-          {{ v.snippet.title }}
-        </h4>
-        <p>
-          {{ v.snippet.channelTitle }}
-        </p>
+        <div class="play-overlay">
+          <!-- ▶ -->
+        </div>
       </div>
 
+      <div class="video-meta">
+        <img
+          class="channel-avatar"
+          src="https://i.pravatar.cc/40?img={{ i }}"
+        />
+
+        <div class="info">
+          <h4>
+            {{ v.snippet.title }}
+          </h4>
+
+          <p>
+            {{ v.snippet.channelTitle }}
+          </p>
+        </div>
+      </div>
     </div>
-
   </div>
-
 </div>

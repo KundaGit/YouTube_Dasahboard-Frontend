@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { YoutubeService } from '../../services/youtube.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 @Component({
   selector: 'app-explore',
   standalone: true,
@@ -54,7 +54,10 @@ console.log(res.data[0])
     });
 
   }
-// playVideo(videoId: string) {
+
+// playVideo(videoId: string, v: any) {
+
+//   this.currentVideo = v;
 
 //   this.selectedVideoId = videoId;
 
@@ -62,19 +65,15 @@ console.log(res.data[0])
 //     this.sanitizer.bypassSecurityTrustResourceUrl(
 //       `https://www.youtube.com/embed/${videoId}?autoplay=1`
 //     );
-
-//   setTimeout(() => {
-//     document.querySelector('.player-section')
-//       ?.scrollIntoView({
-//         behavior: 'smooth',
-//         block: 'start'
-//       });
-//   }, 100);
+//  if (screen.orientation) {
+//     screen.orientation.unlock();
+//   }
 // }
-playVideo(videoId: string, v: any) {
+
+
+async playVideo(videoId: string, v: any) {
 
   this.currentVideo = v;
-
   this.selectedVideoId = videoId;
 
   this.safeVideoUrl =
@@ -82,13 +81,33 @@ playVideo(videoId: string, v: any) {
       `https://www.youtube.com/embed/${videoId}?autoplay=1`
     );
 
+  try {
+    await ScreenOrientation.lock({
+      orientation: 'landscape'
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
-closeVideo() {
+// closeVideo() {
+
+//   this.selectedVideoId = null;
+
+//   this.safeVideoUrl = null;
+
+// }
+async closeVideo() {
 
   this.selectedVideoId = null;
-
   this.safeVideoUrl = null;
 
+  try {
+    await ScreenOrientation.lock({
+      orientation: 'portrait'
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 }

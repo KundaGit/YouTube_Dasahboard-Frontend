@@ -1,53 +1,65 @@
 {
-  "hash": "c0289546",
-  "configHash": "4f2a920a",
-  "lockfileHash": "8b7f539b",
-  "browserHash": "74106eb0",
+  "hash": "0a4d6b61",
+  "configHash": "a1c49a3b",
+  "lockfileHash": "0b3818ce",
+  "browserHash": "490c3ff8",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "b0c16c1a",
+      "fileHash": "afb2e331",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "040c478e",
+      "fileHash": "5502087d",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "f119517a",
+      "fileHash": "53ed4608",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "9bdf967a",
+      "fileHash": "0327f0dd",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "cdf0c8b6",
+      "fileHash": "fc5752e5",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "c4be40e2",
+      "fileHash": "18d6a3ee",
       "needsInterop": false
     },
     "sweetalert2": {
       "src": "../../../../../node_modules/sweetalert2/dist/sweetalert2.esm.all.js",
       "file": "sweetalert2.js",
-      "fileHash": "cc42e2e7",
+      "fileHash": "179ef86e",
+      "needsInterop": false
+    },
+    "@capacitor/screen-orientation": {
+      "src": "../../../../../node_modules/@capacitor/screen-orientation/dist/esm/index.js",
+      "file": "@capacitor_screen-orientation.js",
+      "fileHash": "89fe76e5",
       "needsInterop": false
     }
   },
   "chunks": {
+    "web-EQDH3O77": {
+      "file": "web-EQDH3O77.js"
+    },
+    "chunk-MEMPWAYY": {
+      "file": "chunk-MEMPWAYY.js"
+    },
     "chunk-O5HWIGIV": {
       "file": "chunk-O5HWIGIV.js"
     },
