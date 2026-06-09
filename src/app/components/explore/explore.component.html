@@ -1,4 +1,5 @@
-<div class="explore-page">
+<div class="explore-page"  #scrollContainer
+  (scroll)="onContainerScroll($event)">
   <div class="yt-header">
     <!-- <div class="yt-logo">
       <span class="play-icon">▶</span>
@@ -6,14 +7,10 @@
     </div> -->
 
     <div class="yt-logo">
+      <div class="yt-icon">▶</div>
 
-  <div class="yt-icon">
-    ▶
-  </div>
-
-  <span>YouTube</span>
-
-</div>
+      <span>YouTube</span>
+    </div>
     <div class="yt-count">{{ videos.length }} Videos</div>
   </div>
 
@@ -25,34 +22,6 @@
     <button (click)="searchYoutube()">🔍</button>
   </div>
   <!-- <div class="tabs"> -->
-  <!-- <div class="chips">
-
-  <button class="active">
-    All
-  </button>
-
-  <button>
-    Music
-  </button>
-
-  <button>
-    Gaming
-  </button>
-
-  <button>
-    Podcasts
-  </button>
-
-</div>
-    <button
-      class="tab-btn"
-      [class.active]="activeTab==='search'">
-
-      🔎 Search Results
-
-    </button> -->
-
-  <!-- </div> -->
   <div class="chips">
     <button class="active">All</button>
     <button>Music</button>
@@ -104,11 +73,20 @@
             {{ v.snippet.title }}
           </h4>
 
-          <p>
-            {{ v.snippet.channelTitle }}
-          </p>
+          <div class="video-stats">
+            <p class="channel-name">
+              {{ v.snippet.channelTitle }}
+            </p>
+
+            <span> {{ formatViews(v.statistics?.viewCount) }} views </span>
+
+            <span>•</span>
+
+            <span>2 days ago</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="loading" *ngIf="loadingMore">Loading more videos...</div>
 </div>

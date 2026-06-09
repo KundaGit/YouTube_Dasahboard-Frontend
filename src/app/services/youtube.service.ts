@@ -157,14 +157,36 @@ export class YoutubeService {
 
 }
 
-getTrendingVideos() {
+// getTrendingVideos() {
+
+//   return this.http.get<any>(
+//     `${this.base}/videos/trending`,
+//     {
+//       headers: this.getHeaders()
+//     }
+//   );
+
+// }
+getTrendingVideos(
+  pageToken = ''
+) {
+
+  let params = new HttpParams()
+    .set('maxResults', 20);
+
+  if(pageToken){
+    params = params.set(
+      'pageToken',
+      pageToken
+    );
+  }
 
   return this.http.get<any>(
     `${this.base}/videos/trending`,
     {
-      headers: this.getHeaders()
+      headers:this.getHeaders(),
+      params
     }
   );
-
 }
 }
