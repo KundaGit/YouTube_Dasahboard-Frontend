@@ -3,15 +3,36 @@
   top: 10px;
   z-index: 100;
   background: #0f0f0f;
+  min-height: 220px;
   padding-bottom: 10px;
+   will-change: transform;
+}
+.player-wrapper{
+  position: sticky;
+  top: 10px;
+  z-index: 100;
+  background:#0f0f0f;
+}
+
+.player-section{
+  margin-bottom:20px;
+}
+
+.player-section iframe{
+  width:100%;
+  aspect-ratio:16/9;
+  border:none;
+  border-radius:12px;
 }
 
 
 .explore-page{
-  background:#0f0f0f;
-  color:#fff;
+ background: var(--bg-main);
+color: var(--text-primary);
   min-height:100vh;
   padding:16px;
+  overflow-y:auto;
+  overflow-anchor:none;
 }
 
 /* HEADER */
@@ -150,6 +171,8 @@
 
   .explore-page{
     padding:10px;
+    overflow-y:auto;
+  overflow-anchor:none;
   }
 
   .yt-logo{
@@ -261,4 +284,9 @@
 .explore-page{
   height:100vh;
   overflow-y:auto;
+  overflow-y:auto;
+  overflow-anchor:none;
 }
+
+
+

@@ -186,7 +186,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   }
 
   .main-content {
-    padding-bottom: 120px;
+    padding-bottom: 80px;
   }
 
   .bottom-nav {

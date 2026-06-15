@@ -144,7 +144,7 @@ loadMoreVideos() {
   }
 
   this.loadingMore = true;
-
+const before = window.scrollY;
   console.log('LOADING PAGE', this.nextPageToken);
 
   this.yt.getTrendingVideos(
@@ -152,41 +152,44 @@ loadMoreVideos() {
   ).subscribe({
 
     next: (res) => {
-
-      this.videos = [
-        ...this.videos,
-        ...res.data
-      ];
-
+const currentVideo = this.currentVideo;
+      this.videos.push(...res.data);
+   console.log(
+    'Current Video:',
+    currentVideo,
+    'Selected:',
+    this.selectedVideoId
+  );
+         setTimeout(() => {
+    console.log(
+      'Before:',
+      before,
+      'After:',
+      window.scrollY
+    );
+  })
+console.log(
+    'NEW',
+    this.videos.length
+  );
       this.nextPageToken =
         res.nextPageToken || '';
 
       this.loadingMore = false;
     },
+    
 
     error: () => {
       this.loadingMore = false;
     }
 
   });
+ 
 
 }
-@HostListener('window:scroll', [])
-onScroll() {
- console.log('SCROLLING');
-  const pos =
-    window.innerHeight +
-    window.scrollY;
 
-  const max =
-    document.body.offsetHeight;
-
-  if (pos > max - 500) {
-
-    this.loadMoreVideos();
-
-  }
-
+trackByVideo(index: number, item: any) {
+  return item.videoId || item.id;
 }
 onContainerScroll(event: any) {
 

@@ -30,7 +30,8 @@
 
     <button *ngIf="activeTab === 'search'">Search Results</button>
   </div>
-  <div class="player-section" *ngIf="selectedVideoId">
+  <div class="player-wrapper" *ngIf="selectedVideoId">
+  <div class="player-section" >
     <iframe
       [src]="safeVideoUrl"
       allowfullscreen
@@ -46,11 +47,12 @@
     >
     </iframe>
   </div>
+  </div>
 
   <div class="video-grid">
     <div
       class="video-card"
-      *ngFor="let v of videos; let i = index"
+      *ngFor="let v of videos; let i = index ; trackBy: trackByVideo"
       (click)="playVideo(v.videoId || v.id?.videoId || v.id, v)"
     >
       <!-- <img class="thumb" [src]="v.snippet.thumbnails.high.url"> -->
