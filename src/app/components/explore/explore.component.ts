@@ -191,18 +191,50 @@ console.log(
 trackByVideo(index: number, item: any) {
   return item.videoId || item.id;
 }
-onContainerScroll(event: any) {
+// onContainerScroll(event: any) {
 
-  console.log('CONTAINER SCROLL');
+//   console.log('CONTAINER SCROLL');
 
-  const el = event.target;
+//   const el = event.target;
 
-  if (
-    el.scrollTop + el.clientHeight >=
-    el.scrollHeight - 300
-  ) {
-    this.loadMoreVideos();
+//   if (
+//     el.scrollTop + el.clientHeight >=
+//     el.scrollHeight - 300
+//   ) {
+//     this.loadMoreVideos();
+//   }
+
+// }
+
+
+// Component mein ye add karo
+headerHidden = false;
+private lastScrollTop = 0;
+
+onContainerScroll(event: Event) {
+  const el = event.target as HTMLElement;
+  const st = el.scrollTop;
+
+  // ─── Mobile pe header hide/show ──────────────────────
+  if (window.innerWidth <= 768) {
+    if (st > this.lastScrollTop && st > 80) {
+      // Neeche scroll → header hide
+      this.headerHidden = true;
+    } else if (st < this.lastScrollTop) {
+      // Upar scroll → header show
+      this.headerHidden = false;
+    }
+  } else {
+    // Desktop pe hamesha visible
+    this.headerHidden = false;
   }
 
+  this.lastScrollTop = st <= 0 ? 0 : st;
+
+  // ─── Infinite scroll ─────────────────────────────────
+  const { scrollHeight, clientHeight } = el;
+  if (scrollHeight - st - clientHeight < 500 && !this.loadingMore) {
+    this.loadMoreVideos(); // tera existing method
+  }
 }
 }
