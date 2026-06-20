@@ -197,11 +197,15 @@
 .video-card {
   cursor: pointer;
   transition: transform 0.25s;
+   width:100%;
+  overflow:hidden;
 
   &:hover {
     transform: translateY(-4px);
 
-    .thumb { transform: scale(1.03); }
+    .thumb { transform: scale(1.03);
+     width:100%;
+  display:block; }
   }
 }
 
@@ -286,7 +290,7 @@
 .content-area.has-player {
   @media (min-width: 769px) {
     display: grid;
-    grid-template-columns: 1fr 380px; // player bada, sidebar chota
+    grid-template-columns: minmax(0,1fr) 320px; // player bada, sidebar chota
     gap: 24px;
     align-items: start;
     padding-top: 12px;  // ← YE ADD KARO
@@ -349,7 +353,7 @@
 .content-area.has-player .video-grid {
   @media (min-width: 769px) {
     grid-column: 2;
-    grid-template-columns: 1fr; // sidebar mein single column
+ grid-template-columns: minmax(0,1fr) 300px;// sidebar mein single column
     gap: 12px;
     max-height: calc(100vh - 90px);
     overflow-y: auto;
@@ -606,6 +610,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #333 transparent;
+     overflow-x: hidden;
   }
 }
 
@@ -638,4 +643,143 @@
       padding: 8px 16px 16px;
     }
   }
+}
+
+// Destop blank cover fix while video play
+.player-info{
+  display:none;
+}
+
+@media (min-width:769px){
+
+  .player-info{
+    display:block;
+    padding:16px 0;
+  }
+
+  .player-info h2{
+    font-size:22px;
+    font-weight:700;
+    line-height:1.4;
+    color:white;
+    margin-bottom:14px;
+  }
+
+  .player-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+  }
+
+  .channel{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .player-avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+  }
+
+  .channel-title{
+    font-weight:600;
+    color:white;
+  }
+
+  .channel-subs{
+    font-size:13px;
+    color:#aaa;
+  }
+
+  .actions button{
+    border:none;
+    padding:10px 18px;
+    border-radius:20px;
+    background:#272727;
+    color:white;
+    cursor:pointer;
+  }
+
+  .video-extra{
+    background:#1f1f1f;
+    padding:12px;
+    border-radius:12px;
+    color:#aaa;
+    font-size:14px;
+  }
+
+}
+
+
+.content-area.has-player .video-card{
+  display:flex;
+  gap:10px;
+}
+
+.content-area.has-player .thumb-wrap{
+  width:168px;
+  flex-shrink:0;
+}
+
+.content-area.has-player .video-meta{
+  padding:0;
+}
+
+
+
+.player-info{
+  padding: 16px 0;
+}
+
+.player-info h2{
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.player-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+}
+
+.channel{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.player-avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.channel-title{
+  font-size:15px;
+  font-weight:600;
+}
+
+.channel-subs{
+  font-size:13px;
+  color:#aaa;
+  margin-top:2px;
+}
+
+.actions button{
+  border:none;
+  padding:10px 18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.video-extra{
+  margin-top:12px;
+  color:#aaa;
 }

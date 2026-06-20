@@ -69,14 +69,56 @@
 <div class="content-area" [class.has-player]="!!selectedVideoId">
 
   <!-- Player: left side on desktop -->
-  <div class="player-wrapper" *ngIf="selectedVideoId">
+  <!-- <div class="player-wrapper" *ngIf="selectedVideoId">
     <iframe
       [src]="safeVideoUrl"
       allowfullscreen
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;">
     </iframe>
+  </div> -->
+
+  <div class="player-wrapper" *ngIf="selectedVideoId">
+
+  <iframe
+    [src]="safeVideoUrl"
+    allowfullscreen
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;">
+  </iframe>
+
+  <!-- Desktop only -->
+  <div class="player-info" *ngIf="currentVideo">
+    <h2>{{ currentVideo.snippet.title }}</h2>
+
+    <div class="player-meta">
+      <div class="channel">
+        <img
+          class="player-avatar"
+          src="https://i.pravatar.cc/50"
+        />
+        <div>
+          <div class="channel-title">
+            {{ currentVideo.snippet.channelTitle }}
+          </div>
+          <div class="channel-subs">
+            5K subscribers
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button>👍 Like</button>
+      </div>
+    </div>
+
+    <div class="video-extra">
+      {{ formatViews(currentVideo.statistics?.viewCount) }}
+      views
+    </div>
   </div>
+
+</div>
 
   <!-- Video Grid: right sidebar when playing, full grid when not -->
   <div class="video-grid">
